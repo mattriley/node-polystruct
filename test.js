@@ -92,7 +92,7 @@ test('disabled unless specified when val is array', () => {
     assert.deepEqual(actual, expected);
 });
 
-test('all enabled when all specified when val is empty array', () => {
+test('all enabled when all specified when val is array', () => {
     const expected = {
         foo: {
             enabled: true,
