@@ -123,3 +123,67 @@ test('all disabled when val is empty array', () => {
     const actual = restruct([], ref);
     assert.deepEqual(actual, expected);
 });
+
+test('disabled unless specified when val is array of arrays', () => {
+    const expected = {
+        foo: {
+            enabled: false,
+            bar: 'foo',
+        },
+        bar: {
+            enabled: true,
+            foo: 'bar'
+        }
+    };
+
+    const actual = restruct([['bar', true]], ref);
+    assert.deepEqual(actual, expected);
+});
+
+test('disabled unless specified when val is array of arrays', () => {
+    const expected = {
+        foo: {
+            enabled: false,
+            bar: 'foo',
+        },
+        bar: {
+            enabled: false,
+            foo: 'bar'
+        }
+    };
+
+    const actual = restruct([['bar', false]], ref);
+    assert.deepEqual(actual, expected);
+});
+
+test('disabled unless specified when val is array of arrays', () => {
+    const expected = {
+        foo: {
+            enabled: false,
+            bar: 'foo',
+        },
+        bar: {
+            enabled: true,
+            foo: 'bar'
+        }
+    };
+
+    const actual = restruct([['bar', undefined]], ref);
+    assert.deepEqual(actual, expected);
+});
+
+test('disabled unless specified when val is array of arrays', () => {
+    const expected = {
+        foo: {
+            enabled: false,
+            bar: 'foo',
+        },
+        bar: {
+            enabled: false,
+            foo: 'bar'
+        }
+    };
+
+    const actual = restruct([['bar', null]], ref);
+    assert.deepEqual(actual, expected);
+});
