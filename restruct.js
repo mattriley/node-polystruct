@@ -1,12 +1,10 @@
 const restruct = (val, ref) => {
 
     if (val === true || val === undefined) return restruct(Object.keys(ref), ref);
-
     if (val === false || val === null) return restruct([], ref);
 
     if (Array.isArray(val)) {
         const arr = val;
-
         const obj = Object.fromEntries(arr.map(el => {
             if (typeof el === 'string') return [el, true];
             if (Array.isArray(el)) {
@@ -18,11 +16,8 @@ const restruct = (val, ref) => {
         }));
 
         const refobj = Object.fromEntries(Object.keys(ref).map(key => [key, false]));
-
         return restruct({ ...refobj, ...obj }, ref);
     };
-
-
 
     if (typeof val === 'object') {
         const obj = val;
