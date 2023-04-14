@@ -1,26 +1,11 @@
 const restruct = (val, ref) => {
 
-    const refKeys = Object.keys(ref);
-
-    const restructure = (arg) => {
-        console.warn(typeof arg, arg)
-        return Object.fromEntries(refKeys.map(key => {
-            const refConfig = ref[key] ?? {};
-            const valConfig = typeof val === 'object' ? val[key] ?? {} : {};
-            const argConfig = typeof arg === 'function' ? arg(key) : arg ?? {};
-            return [key, { ...refConfig, ...valConfig, ...argConfig }];
-        }));
-    };
-
-    // if (val === true || val === undefined) return restructure({ enabled: true });
-
     if (val === true || val === undefined) return restruct(Object.keys(ref), ref);
 
     if (val === false || val === null) return restruct([], ref);
 
     if (Array.isArray(val)) {
         const arr = val;
-        if (!arr.length) return restructure({ enabled: false });
 
         const obj = Object.fromEntries(arr.map(el => {
             if (typeof el === 'string') return [el, true];
