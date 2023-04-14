@@ -12,7 +12,10 @@ const restruct = (val, ref) => {
         }));
     };
 
-    if (val === true || val === undefined) return restructure({ enabled: true });
+    // if (val === true || val === undefined) return restructure({ enabled: true });
+
+    if (val === true || val === undefined) return restruct(Object.keys(ref), ref);
+
     if (val === false || val === null) return restructure({ enabled: false });
 
     if (Array.isArray(val)) {
