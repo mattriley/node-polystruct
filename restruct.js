@@ -16,7 +16,7 @@ const restruct = (val, ref) => {
 
     if (val === true || val === undefined) return restruct(Object.keys(ref), ref);
 
-    if (val === false || val === null) return restructure({ enabled: false });
+    if (val === false || val === null) return restruct([], ref);
 
     if (Array.isArray(val)) {
         const arr = val;
