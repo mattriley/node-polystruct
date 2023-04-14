@@ -172,18 +172,30 @@ test('disabled unless specified when val is array of arrays', () => {
     assert.deepEqual(actual, expected);
 });
 
-test('disabled unless specified when val is array of arrays', () => {
+test('combination of enabled and disabled', () => {
     const expected = {
         foo: {
             enabled: false,
             bar: 'foo',
         },
         bar: {
-            enabled: false,
+            enabled: true,
             foo: 'bar'
         }
     };
 
-    const actual = restruct([['bar', null]], ref);
-    assert.deepEqual(actual, expected);
+    const inputs = [
+        ['bar'],
+        [['bar', true]],
+        [['bar', undefined]],
+        [['bar', { enabled: true }]],
+        { bar: true },
+        { bar: { enabled: true } }
+    ];
+
+    inputs.forEach(input => {
+        const actual = restruct(input, ref);
+        assert.deepEqual(actual, expected);
+    });
+
 });
