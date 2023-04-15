@@ -3,8 +3,7 @@ const restruct = (val, ref) => {
     if (!val) return restruct([], ref);
 
     if (Array.isArray(val)) {
-        const arr = val;
-        const obj = Object.fromEntries(arr.map(el => {
+        const obj = Object.fromEntries(val.map(el => {
             if (typeof el === 'string') return [el, true];
             if (Array.isArray(el)) {
                 const [key, val] = el;
@@ -25,7 +24,6 @@ const restruct = (val, ref) => {
             if (val.constructor === Object) return [key, { ...refobj, ...val, enabled: val.enabled ?? false }];
             return [key, { ...refobj, enabled: true }];
         }));
-
     }
 
     return restruct(Object.keys(ref), ref);
