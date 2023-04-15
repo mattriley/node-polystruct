@@ -132,3 +132,31 @@ test('option to include key and rename enabled', () => {
     });
 
 });
+
+
+test('ref is array', () => {
+    const ref = ['foo', 'bar'];
+
+    const expected = {
+        foo: {
+            enabled: false,
+        },
+        bar: {
+            enabled: true,
+        }
+    };
+
+    const inputs = [
+        ['bar'],
+        [['bar', true]],
+        [['bar', { enabled: true }]],
+        { bar: true },
+        { bar: { enabled: true } }
+    ];
+
+    inputs.forEach(input => {
+        const actual = polystruct(input, ref);
+        assert.deepEqual(actual, expected);
+    });
+
+});

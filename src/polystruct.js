@@ -2,14 +2,14 @@ const defaultOptions = { key: null, enabled: 'enabled' };
 
 module.exports = (val, ref, options = {}) => {
     const opt = { ...defaultOptions, ...options };
-    const maybeKey = key => opt.key ? { [opt.key]: key } : {};
+    const refobj = Array.isArray(ref) ? Object.fromEntries(ref.map(el => [el, {}])) : ref;
 
     const polystruct = {
         any: val => {
             if (!val) return polystruct.any([], ref);
             if (Array.isArray(val)) return polystruct.arr(val);
             if (val.constructor === Object) return polystruct.obj(val);
-            return polystruct.any(Object.keys(ref));
+            return polystruct.any(Object.keys(refobj));
         },
         arr: arr => {
             return polystruct.any(Object.fromEntries(arr.map(el => {
@@ -23,7 +23,8 @@ module.exports = (val, ref, options = {}) => {
             })));
         },
         obj: obj => {
-            return Object.fromEntries(Object.entries(ref).map(([key, refobj]) => {
+            const maybeKey = key => opt.key ? { [opt.key]: key } : {};
+            return Object.fromEntries(Object.entries(refobj).map(([key, refobj]) => {
                 const res = enabled => [key, { ...refobj, ...val, [opt.enabled]: enabled, ...maybeKey(key) }];
                 const val = obj[key];
                 if (!val) return res(false);
