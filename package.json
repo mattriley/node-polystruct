@@ -1,7 +1,7 @@
 {
     "name": "polystruct",
     "version": "0.1.0",
-    "description": "",
+    "description": "Make configuration convenient with Polystruct, a tiny utility that derives a common data structure from varying input representations.",
     "homepage": "https://github.com/mattriley/node-polystruct",
     "repository": "github:mattriley/node-polystruct",
     "author": {
@@ -31,6 +31,6 @@
         "eslint-plugin-import": "^2.27.5",
         "husky": "^8.0.3",
         "npm-check-updates": "^16.10.8",
-        "task-library": "^0.207.0"
+        "task-library": "^0.209.0"
     }
 }

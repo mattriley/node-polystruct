@@ -139,10 +139,10 @@ test('ref is array', () => {
 
     const expected = {
         foo: {
-            enabled: false,
+            enabled: false
         },
         bar: {
-            enabled: true,
+            enabled: true
         }
     };
 
