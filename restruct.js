@@ -1,18 +1,22 @@
+const restructArray = arr => {
+    return Object.fromEntries(arr.map(el => {
+        if (typeof el === 'string') return [el, true];
+        if (Array.isArray(el)) {
+            const [key, val] = el;
+            if (!val) return [key, false]
+            if (val.constructor === Object) return [key, val];
+            return [key, true]
+        }
+    }))
+};
+
 module.exports = (val, ref) => {
 
     const recurse = val => {
         if (!val) return recurse([]);
 
         if (Array.isArray(val)) {
-            return recurse(Object.fromEntries(val.map(el => {
-                if (typeof el === 'string') return [el, true];
-                if (Array.isArray(el)) {
-                    const [key, val] = el;
-                    if (!val) return [key, false]
-                    if (val.constructor === Object) return [key, val];
-                    return [key, true]
-                }
-            })));
+            return recurse(restructArray(val));
         };
 
         if (val.constructor === Object) {
