@@ -1,6 +1,5 @@
 const defaultOptions = { key: null, enabled: 'enabled' };
 
-
 module.exports = (val, ref, options = {}) => {
     const opt = { ...defaultOptions, ...options };
     const maybeKey = key => opt.key ? { [opt.key]: key } : {};
@@ -26,10 +25,10 @@ module.exports = (val, ref, options = {}) => {
         },
         obj: obj => {
             return Object.fromEntries(Object.entries(ref).map(([key, refobj]) => {
-                const res = (enabled, val = {}) => [key, { ...refobj, ...val, ...maybeEnabled(enabled), ...maybeKey(key) }];
+                const res = enabled => [key, { ...refobj, ...val, ...maybeEnabled(enabled), ...maybeKey(key) }];
                 const val = obj[key];
                 if (!val) return res(false);
-                if (val.constructor === Object) return res(!!val[opt.enabled], val);
+                if (val.constructor === Object) return res(!!val[opt.enabled]);
                 return res(true);
             }));
         }
