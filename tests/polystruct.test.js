@@ -2,6 +2,15 @@ const test = require('node:test');
 const assert = require('node:assert');
 const polystruct = require('../src/polystruct');
 
+const assertEach = async (t, expected, inputs, opts, _ref = ref) => {
+    await Promise.all(inputs.map(async input => {
+        await t.test(JSON.stringify(input), () => {
+            const actual = polystruct(input, _ref, opts);
+            assert.deepEqual(actual, expected);
+        });
+    }));
+};
+
 const ref = {
     foo: {
         bar: 'foo'
@@ -11,7 +20,7 @@ const ref = {
     }
 };
 
-test('all enabled', () => {
+test('all enabled', async t => {
     const expected = {
         foo: {
             enabled: true,
@@ -33,14 +42,11 @@ test('all enabled', () => {
         { foo: { enabled: true }, bar: { enabled: true } }
     ];
 
-    inputs.forEach(input => {
-        const actual = polystruct(input, ref);
-        assert.deepEqual(actual, expected);
-    });
+    await assertEach(t, expected, inputs);
 
 });
 
-test('all disabled', () => {
+test('all disabled', async t => {
     const expected = {
         foo: {
             enabled: false,
@@ -68,14 +74,11 @@ test('all disabled', () => {
         { foo: { enabled: null }, bar: { enabled: null } }
     ];
 
-    inputs.forEach(input => {
-        const actual = polystruct(input, ref);
-        assert.deepEqual(actual, expected);
-    });
+    await assertEach(t, expected, inputs);
 
 });
 
-test('enable one of two', () => {
+test('enable one of two', async t => {
     const expected = {
         foo: {
             enabled: false,
@@ -95,14 +98,11 @@ test('enable one of two', () => {
         { bar: { enabled: true } }
     ];
 
-    inputs.forEach(input => {
-        const actual = polystruct(input, ref);
-        assert.deepEqual(actual, expected);
-    });
+    await assertEach(t, expected, inputs);
 
 });
 
-test('option to include key and rename enabled', () => {
+test('option to include key and rename enabled', async t => {
     const expected = {
         foo: {
             key: 'foo',
@@ -124,15 +124,12 @@ test('option to include key and rename enabled', () => {
         { bar: { on: true } }
     ];
 
-    inputs.forEach(input => {
-        const actual = polystruct(input, ref, { key: 'key', enabled: 'on' });
-        assert.deepEqual(actual, expected);
-    });
+    await assertEach(t, expected, inputs, { key: 'key', enabled: 'on' });
 
 });
 
 
-test('ref is array', () => {
+test('ref is array', async t => {
     const ref = ['foo', 'bar'];
 
     const expected = {
@@ -152,9 +149,6 @@ test('ref is array', () => {
         { bar: { enabled: true } }
     ];
 
-    inputs.forEach(input => {
-        const actual = polystruct(input, ref);
-        assert.deepEqual(actual, expected);
-    });
+    await assertEach(t, expected, inputs, {}, ref);
 
 });
