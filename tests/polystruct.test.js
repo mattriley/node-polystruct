@@ -13,13 +13,13 @@ const assertEach = async (t, expected, ref, vals, opts) => {
 
 test('all enabled', async t => {
     const expected = {
-        foo: { enabled: true, bar: 'foo' },
-        bar: { enabled: true, foo: 'bar' }
+        foo: { enabled: true, a: 1 },
+        bar: { enabled: true, b: 2 }
     };
 
     const ref = {
-        foo: { bar: 'foo' },
-        bar: { foo: 'bar' }
+        foo: { a: 1 },
+        bar: { b: 2 }
     };
 
     const vals = [
@@ -41,35 +41,37 @@ test('all enabled', async t => {
 
 test('all disabled', async t => {
     const expected = {
-        foo: {
-            enabled: false,
-            bar: 'foo'
-        },
-        bar: {
-            enabled: false,
-            foo: 'bar'
-        }
+        foo: { enabled: false, a: 1 },
+        bar: { enabled: false, b: 2 }
     };
 
     const ref = {
-        foo: { bar: 'foo' },
-        bar: { foo: 'bar' }
+        foo: { a: 1 },
+        bar: { b: 2 }
     };
 
     const vals = [
         false,
         null,
         undefined,
+        0,
         [],
         [['foo', false], ['bar', false]],
         [['foo', null], ['bar', null]],
         [['foo', undefined], ['bar', undefined]],
+        [['foo', 0], ['bar', 0]],
         [['foo', { enabled: false }], ['bar', { enabled: false }]],
         [['foo', { enabled: null }], ['bar', { enabled: null }]],
+        [['foo', { enabled: undefined }], ['bar', { enabled: undefined }]],
+        [['foo', { enabled: 0 }], ['bar', { enabled: 0 }]],
         { foo: false, bar: false },
         { foo: null, bar: null },
+        { foo: undefined, bar: undefined },
+        { foo: 0, bar: 0 },
         { foo: { enabled: false }, bar: { enabled: false } },
-        { foo: { enabled: null }, bar: { enabled: null } }
+        { foo: { enabled: null }, bar: { enabled: null } },
+        { foo: { enabled: undefined }, bar: { enabled: undefined } },
+        { foo: { enabled: 0 }, bar: { enabled: 0 } }
     ];
 
     await assertEach(t, expected, ref, vals);
