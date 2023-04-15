@@ -4,7 +4,7 @@ module.exports = (val, ref) => {
         if (!val) return recurse([]);
 
         if (Array.isArray(val)) {
-            const obj = Object.fromEntries(val.map(el => {
+            return recurse(Object.fromEntries(val.map(el => {
                 if (typeof el === 'string') return [el, true];
                 if (Array.isArray(el)) {
                     const [key, val] = el;
@@ -12,9 +12,7 @@ module.exports = (val, ref) => {
                     if (val.constructor === Object) return [key, val];
                     return [key, true]
                 }
-            }));
-
-            return recurse(obj);
+            })));
         };
 
         if (val.constructor === Object) {
