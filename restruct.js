@@ -8,9 +8,9 @@ const restruct = (val, ref) => {
             if (typeof el === 'string') return [el, true];
             if (Array.isArray(el)) {
                 const [key, val] = el;
-                if (val === true) return [key, true];
-                if (val === false || val === null || val === undefined) return [key, false];
+                if (!val) return [key, false]
                 if (val.constructor === Object) return [key, val];
+                return [key, true]
             }
         }));
 
