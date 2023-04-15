@@ -68,45 +68,41 @@ module.exports = [
             bar: { b: 2 }
         },
         vals: [
-            ['bar'],
-            [['bar', true]],
-            [['bar', { enabled: true }]],
-            { bar: true },
-            { bar: { enabled: true } }
-        ]
-    },
-    {
-        name: 'option to include key and rename enabled',
-        opt: { key: 'key', enabled: 'on' },
-        expected: {
-            foo: { key: 'foo', on: false, bar: 'foo' },
-            bar: { key: 'bar', on: true, foo: 'bar' }
-        },
-        ref: {
-            foo: { bar: 'foo' },
-            bar: { foo: 'bar' }
-        },
-        vals: [
-            ['bar'],
-            [['bar', true]],
-            [['bar', { on: true }]],
-            { bar: true },
-            { bar: { on: true } }
+            ['bar']
         ]
     },
     {
         name: 'ref is array',
         expected: {
-            foo: { enabled: false },
-            bar: { enabled: true }
+            foo: { enabled: true },
+            bar: { enabled: false }
         },
         ref: ['foo', 'bar'],
         vals: [
-            ['bar'],
-            [['bar', true]],
-            [['bar', { enabled: true }]],
-            { bar: true },
-            { bar: { enabled: true } }
+            ['foo']
+        ]
+    },
+    {
+        name: 'option to include key',
+        opt: { key: 'key' },
+        expected: {
+            foo: { key: 'foo', enabled: true }
+        },
+        ref: ['foo'],
+        vals: [
+            ['foo']
+        ]
+    },
+    {
+        name: 'option to rename enabled',
+        opt: { enabled: 'on' },
+        expected: {
+            foo: { on: true }
+        },
+        ref: ['foo'],
+        vals: [
+            ['foo']
         ]
     }
+
 ];
