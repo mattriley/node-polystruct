@@ -1,4 +1,10 @@
-module.exports = (val, ref, opt = { toggleName: 'enabled' }) => {
+const defaultOptions = { key: null, enabled: 'enabled' };
+
+
+module.exports = (val, ref, options = {}) => {
+    const opt = { ...defaultOptions, ...options };
+    const maybeKey = key => opt.key ? { [opt.key]: key } : {};
+    const maybeEnabled = enabled => opt.enabled ? { [opt.enabled]: enabled } : {};
 
     const restruct = {
         any: val => {
@@ -20,15 +26,14 @@ module.exports = (val, ref, opt = { toggleName: 'enabled' }) => {
         },
         obj: obj => {
             return Object.fromEntries(Object.entries(ref).map(([key, refobj]) => {
-                const res = (enabled, val = {}) => [key, { ...refobj, ...val, [opt.toggleName]: enabled }];
+                const res = (enabled, val = {}) => [key, { ...refobj, ...val, ...maybeEnabled(enabled), ...maybeKey(key) }];
                 const val = obj[key];
                 if (!val) return res(false);
-                if (val.constructor === Object) return res(val[opt.toggleName] ?? false, val);
+                if (val.constructor === Object) return res(val[opt.enabled] ?? false, val);
                 return res(true);
             }));
         }
     };
 
     return restruct.any(val);
-
 };
