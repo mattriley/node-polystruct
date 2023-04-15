@@ -8,7 +8,7 @@ restruct.any = (val, ref) => {
 };
 
 restruct.array = (arr, ref) => {
-    return restruct(Object.fromEntries(arr.map(el => {
+    return restruct.any(Object.fromEntries(arr.map(el => {
         if (el.constructor === String) return [el, true];
         if (Array.isArray(el)) {
             const [key, val] = el;
