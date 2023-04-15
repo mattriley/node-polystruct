@@ -1,7 +1,7 @@
-const restruct = (val, ref) => {
+module.exports = (val, ref) => {
 
     const recurse = val => {
-        if (!val) return recurse([], ref);
+        if (!val) return recurse([]);
 
         if (Array.isArray(val)) {
             const obj = Object.fromEntries(val.map(el => {
@@ -14,7 +14,7 @@ const restruct = (val, ref) => {
                 }
             }));
 
-            return recurse(obj, ref);
+            return recurse(obj);
         };
 
         if (val.constructor === Object) {
@@ -27,11 +27,9 @@ const restruct = (val, ref) => {
             }));
         }
 
-        return recurse(Object.keys(ref), ref);
+        return recurse(Object.keys(ref));
     };
 
     return recurse(val);
 
 };
-
-module.exports = restruct;
