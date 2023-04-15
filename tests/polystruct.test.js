@@ -79,19 +79,13 @@ test('all disabled', async t => {
 
 test('enable one of two', async t => {
     const expected = {
-        foo: {
-            enabled: false,
-            bar: 'foo'
-        },
-        bar: {
-            enabled: true,
-            foo: 'bar'
-        }
+        foo: { enabled: false, a: 1 },
+        bar: { enabled: true, b: 2 }
     };
 
     const ref = {
-        foo: { bar: 'foo' },
-        bar: { foo: 'bar' }
+        foo: { a: 1 },
+        bar: { b: 2 }
     };
 
     const vals = [
