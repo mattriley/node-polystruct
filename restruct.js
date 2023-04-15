@@ -1,7 +1,6 @@
 const restruct = (val, ref) => {
 
-    if (val === true) return restruct(Object.keys(ref), ref);
-    if (val === false || val === null || val === undefined) return restruct([], ref);
+    if (!val) return restruct([], ref);
 
     if (Array.isArray(val)) {
         const arr = val;
@@ -32,7 +31,7 @@ const restruct = (val, ref) => {
 
     }
 
-    throw new Error('Value type is not supported');
+    return restruct(Object.keys(ref), ref);
 
 };
 
