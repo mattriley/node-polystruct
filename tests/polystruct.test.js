@@ -26,10 +26,14 @@ test('all enabled', async t => {
         true,
         ['foo', 'bar'],
         [['foo', true], ['bar', true]],
+        [['foo', 1], ['bar', 1]],
         [['foo', { enabled: true }], ['bar', { enabled: true }]],
+        [['foo', { enabled: 1 }], ['bar', { enabled: 1 }]],
         { foo: true, bar: true },
+        { foo: 1, bar: 1 },
         { foo: {}, bar: {} },
-        { foo: { enabled: true }, bar: { enabled: true } }
+        { foo: { enabled: true }, bar: { enabled: true } },
+        { foo: { enabled: 1 }, bar: { enabled: 1 } }
     ];
 
     await assertEach(t, expected, ref, vals);
