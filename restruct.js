@@ -14,8 +14,7 @@ const restruct = (val, ref) => {
             }
         }));
 
-        const refobj = Object.fromEntries(Object.keys(ref).map(key => [key, false]));
-        return restruct({ ...refobj, ...obj }, ref);
+        return restruct(obj, ref);
     };
 
     if (val.constructor === Object) {
