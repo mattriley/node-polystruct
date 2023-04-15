@@ -1,6 +1,6 @@
 const test = require('node:test');
 const assert = require('node:assert');
-const restruct = require('./restruct');
+const polystruct = require('./polystruct');
 
 const ref = {
     foo: {
@@ -33,7 +33,7 @@ test('all enabled', () => {
     ];
 
     inputs.forEach(input => {
-        const actual = restruct(input, ref);
+        const actual = polystruct(input, ref);
         assert.deepEqual(actual, expected);
     });
 
@@ -71,7 +71,7 @@ test('all disabled', () => {
     ];
 
     inputs.forEach(input => {
-        const actual = restruct(input, ref);
+        const actual = polystruct(input, ref);
         assert.deepEqual(actual, expected);
     });
 
@@ -98,7 +98,7 @@ test('enable one of two', () => {
     ];
 
     inputs.forEach(input => {
-        const actual = restruct(input, ref);
+        const actual = polystruct(input, ref);
         assert.deepEqual(actual, expected);
     });
 

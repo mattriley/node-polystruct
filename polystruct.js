@@ -5,15 +5,15 @@ module.exports = (val, ref, options = {}) => {
     const maybeKey = key => opt.key ? { [opt.key]: key } : {};
     const maybeEnabled = enabled => opt.enabled ? { [opt.enabled]: enabled } : {};
 
-    const restruct = {
+    const polystruct = {
         any: val => {
-            if (!val) return restruct.any([], ref);
-            if (Array.isArray(val)) return restruct.arr(val);
-            if (val.constructor === Object) return restruct.obj(val);
-            return restruct.any(Object.keys(ref));
+            if (!val) return polystruct.any([], ref);
+            if (Array.isArray(val)) return polystruct.arr(val);
+            if (val.constructor === Object) return polystruct.obj(val);
+            return polystruct.any(Object.keys(ref));
         },
         arr: arr => {
-            return restruct.any(Object.fromEntries(arr.map(el => {
+            return polystruct.any(Object.fromEntries(arr.map(el => {
                 if (el.constructor === String) return [el, true];
                 if (Array.isArray(el)) {
                     const [key, val] = el;
@@ -34,5 +34,5 @@ module.exports = (val, ref, options = {}) => {
         }
     };
 
-    return restruct.any(val);
+    return polystruct.any(val);
 };
