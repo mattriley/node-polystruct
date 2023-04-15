@@ -29,7 +29,7 @@ module.exports = (val, ref, options = {}) => {
                 const res = (enabled, val = {}) => [key, { ...refobj, ...val, ...maybeEnabled(enabled), ...maybeKey(key) }];
                 const val = obj[key];
                 if (!val) return res(false);
-                if (val.constructor === Object) return res(val[opt.enabled] ?? false, val);
+                if (val.constructor === Object) return res(!!val[opt.enabled], val);
                 return res(true);
             }));
         }
