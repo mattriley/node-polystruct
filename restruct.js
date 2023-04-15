@@ -19,12 +19,12 @@ restruct.array = (arr, ref) => {
     })), ref);
 };
 
-restruct.object = (obj, ref) => {
+restruct.object = (obj, ref, opt = { toggleName: 'enabled' }) => {
     return Object.fromEntries(Object.entries(ref).map(([key, refobj]) => {
         const val = obj[key];
-        if (!val) return [key, { ...refobj, enabled: false }];
-        if (val.constructor === Object) return [key, { ...refobj, ...val, enabled: val.enabled ?? false }];
-        return [key, { ...refobj, enabled: true }];
+        if (!val) return [key, { ...refobj, [opt.toggleName]: false }];
+        if (val.constructor === Object) return [key, { ...refobj, ...val, [opt.toggleName]: val.enabled ?? false }];
+        return [key, { ...refobj, [opt.toggleName]: true }];
     }));
 };
 
