@@ -1,13 +1,15 @@
-const restruct = (val, ref = val) => {
-    if (!val) return restruct([], ref);
+const restruct = (val, ref) => restruct.any(val, ref);
+
+restruct.any = (val, ref) => {
+    if (!val) return restruct.any([], ref);
     if (Array.isArray(val)) return restruct.array(val, ref);
     if (val.constructor === Object) return restruct.object(val, ref);
-    return restruct(Object.keys(ref), ref);
+    return restruct.any(Object.keys(ref), ref);
 };
 
 restruct.array = (arr, ref) => {
     return restruct(Object.fromEntries(arr.map(el => {
-        if (typeof el === 'string') return [el, true];
+        if (el.constructor === String) return [el, true];
         if (Array.isArray(el)) {
             const [key, val] = el;
             if (!val) return [key, false]
