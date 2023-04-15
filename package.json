@@ -13,6 +13,9 @@
         "url": "https://github.com/mattriley/node-polystruct/issues",
         "email": "m@ttriley.dev"
     },
+    "files": [
+        "src/**/*"
+    ],
     "main": "src/polystruct.js",
     "scripts": {
         "cov": "npx task cov",
