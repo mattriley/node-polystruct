@@ -10,6 +10,15 @@ const restructArray = arr => {
     }))
 };
 
+const restructObject = (obj, ref) => {
+    return Object.fromEntries(Object.entries(ref).map(([key, refobj]) => {
+        const val = obj[key];
+        if (!val) return [key, { ...refobj, enabled: false }];
+        if (val.constructor === Object) return [key, { ...refobj, ...val, enabled: val.enabled ?? false }];
+        return [key, { ...refobj, enabled: true }];
+    }));
+}
+
 module.exports = (val, ref) => {
 
     const recurse = val => {
@@ -20,13 +29,7 @@ module.exports = (val, ref) => {
         };
 
         if (val.constructor === Object) {
-            const obj = val;
-            return Object.fromEntries(Object.entries(ref).map(([key, refobj]) => {
-                const val = obj[key];
-                if (!val) return [key, { ...refobj, enabled: false }];
-                if (val.constructor === Object) return [key, { ...refobj, ...val, enabled: val.enabled ?? false }];
-                return [key, { ...refobj, enabled: true }];
-            }));
+            return restructObject(val, ref);
         }
 
         return recurse(Object.keys(ref));
