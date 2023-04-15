@@ -29,6 +29,7 @@ test('all enabled', () => {
         [['foo', true], ['bar', true]],
         [['foo', { enabled: true }], ['bar', { enabled: true }]],
         { foo: true, bar: true },
+        { foo: {}, bar: {} },
         { foo: { enabled: true }, bar: { enabled: true } }
     ];
 
@@ -61,13 +62,10 @@ test('all disabled', () => {
         [['foo', undefined], ['bar', undefined]],
         [['foo', { enabled: false }], ['bar', { enabled: false }]],
         [['foo', { enabled: null }], ['bar', { enabled: null }]],
-        [['foo', { enabled: undefined }], ['bar', { enabled: undefined }]],
         { foo: false, bar: false },
         { foo: null, bar: null },
-        { foo: undefined, bar: undefined },
         { foo: { enabled: false }, bar: { enabled: false } },
-        { foo: { enabled: null }, bar: { enabled: null } },
-        { foo: { enabled: undefined }, bar: { enabled: undefined } }
+        { foo: { enabled: null }, bar: { enabled: null } }
     ];
 
     inputs.forEach(input => {
