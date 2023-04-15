@@ -20,8 +20,8 @@ module.exports = (val, ref, opt = { toggleName: 'enabled' }) => {
         },
         obj: obj => {
             return Object.fromEntries(Object.entries(ref).map(([key, refobj]) => {
-                const val = obj[key];
                 const res = (enabled, val = {}) => [key, { ...refobj, ...val, [opt.toggleName]: enabled }];
+                const val = obj[key];
                 if (!val) return res(false);
                 if (val.constructor === Object) return res(val[opt.toggleName] ?? false, val);
                 return res(true);
