@@ -1,7 +1,7 @@
 const restruct = (val, ref) => {
 
-    if (val === true || val === undefined) return restruct(Object.keys(ref), ref);
-    if (val === false || val === null) return restruct([], ref);
+    if (val === true) return restruct(Object.keys(ref), ref);
+    if (val === false || val === null || val === undefined) return restruct([], ref);
 
     if (Array.isArray(val)) {
         const arr = val;
@@ -9,8 +9,8 @@ const restruct = (val, ref) => {
             if (typeof el === 'string') return [el, true];
             if (Array.isArray(el)) {
                 const [key, val] = el;
-                if (val === true || val === undefined) return [key, true];
-                if (val === false || val === null) return [key, false];
+                if (val === true) return [key, true];
+                if (val === false || val === null || val === undefined) return [key, false];
                 if (typeof val === 'object') return [key, val];
             }
         }));

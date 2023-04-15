@@ -25,10 +25,8 @@ test('all enabled', () => {
 
     const inputs = [
         true,
-        undefined,
         ['foo', 'bar'],
         [['foo', true], ['bar', true]],
-        [['foo', undefined], ['bar', undefined]],
         [['foo', { enabled: true }], ['bar', { enabled: true }]],
         { foo: true, bar: true },
         { foo: { enabled: true }, bar: { enabled: true } }
@@ -56,12 +54,20 @@ test('all disabled', () => {
     const inputs = [
         false,
         null,
+        undefined,
         [],
         [['foo', false], ['bar', false]],
         [['foo', null], ['bar', null]],
+        [['foo', undefined], ['bar', undefined]],
         [['foo', { enabled: false }], ['bar', { enabled: false }]],
+        [['foo', { enabled: null }], ['bar', { enabled: null }]],
+        [['foo', { enabled: undefined }], ['bar', { enabled: undefined }]],
         { foo: false, bar: false },
-        { foo: { enabled: false }, bar: { enabled: false } }
+        { foo: null, bar: null },
+        { foo: undefined, bar: undefined },
+        { foo: { enabled: false }, bar: { enabled: false } },
+        { foo: { enabled: null }, bar: { enabled: null } },
+        { foo: { enabled: undefined }, bar: { enabled: undefined } }
     ];
 
     inputs.forEach(input => {
@@ -86,7 +92,6 @@ test('enable one of two', () => {
     const inputs = [
         ['bar'],
         [['bar', true]],
-        [['bar', undefined]],
         [['bar', { enabled: true }]],
         { bar: true },
         { bar: { enabled: true } }
