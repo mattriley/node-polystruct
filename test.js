@@ -71,7 +71,7 @@ test('all disabled', () => {
 
 });
 
-test('combination of enabled and disabled', () => {
+test('enable one of two', () => {
     const expected = {
         foo: {
             enabled: false,
