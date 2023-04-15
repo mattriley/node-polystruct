@@ -1,18 +1,12 @@
-const restruct = (val, ref) => {
-
-    const recurse = val => {
-        if (!val) return recurse([]);
-        if (Array.isArray(val)) return recurse(restruct.array(val));
-        if (val.constructor === Object) return restruct.object(val, ref);
-        return recurse(Object.keys(ref));
-    };
-
-    return recurse(val);
-
+const restruct = (val, ref = val) => {
+    if (!val) return restruct([], ref);
+    if (Array.isArray(val)) return restruct.array(val, ref);
+    if (val.constructor === Object) return restruct.object(val, ref);
+    return restruct(Object.keys(ref), ref);
 };
 
-restruct.array = arr => {
-    return Object.fromEntries(arr.map(el => {
+restruct.array = (arr, ref) => {
+    return restruct(Object.fromEntries(arr.map(el => {
         if (typeof el === 'string') return [el, true];
         if (Array.isArray(el)) {
             const [key, val] = el;
@@ -20,7 +14,7 @@ restruct.array = arr => {
             if (val.constructor === Object) return [key, val];
             return [key, true]
         }
-    }))
+    })), ref);
 };
 
 restruct.object = (obj, ref) => {
