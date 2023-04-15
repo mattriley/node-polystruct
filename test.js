@@ -199,3 +199,31 @@ test('combination of enabled and disabled', () => {
     });
 
 });
+
+test('all enabled', () => {
+    const expected = {
+        foo: {
+            enabled: true,
+            bar: 'foo',
+        },
+        bar: {
+            enabled: true,
+            foo: 'bar'
+        }
+    };
+
+    const inputs = [
+        ['foo', 'bar'],
+        [['foo', true], ['bar', true]],
+        [['foo', undefined], ['bar', undefined]],
+        [['foo', { enabled: true }], ['bar', { enabled: true }]],
+        { foo: true, bar: true },
+        { foo: { enabled: true }, bar: { enabled: true } }
+    ];
+
+    inputs.forEach(input => {
+        const actual = restruct(input, ref);
+        assert.deepEqual(actual, expected);
+    });
+
+});
