@@ -11,7 +11,7 @@ const restruct = (val, ref) => {
                 const [key, val] = el;
                 if (val === true) return [key, true];
                 if (val === false || val === null || val === undefined) return [key, false];
-                if (typeof val === 'object') return [key, val];
+                if (val.constructor === Object) return [key, val];
             }
         }));
 
@@ -19,14 +19,14 @@ const restruct = (val, ref) => {
         return restruct({ ...refobj, ...obj }, ref);
     };
 
-    if (typeof val === 'object') {
+    if (val.constructor === Object) {
         const obj = val;
         return Object.fromEntries(Object.entries(ref).map(([key, refobj]) => {
             const val = obj[key];
             if (Array.isArray(val)) throw new Error('Value as array is not supported');
             if (val === true) return [key, { ...refobj, enabled: true }];
             if (val === false || val === null || val == undefined) return [key, { ...refobj, enabled: false }];
-            if (typeof val === 'object') return [key, { ...refobj, ...val, enabled: val.enabled ?? false }];
+            if (val.constructor === Object) return [key, { ...refobj, ...val, enabled: val.enabled ?? false }];
             throw new Error('Value type is not supported');
         }));
 
