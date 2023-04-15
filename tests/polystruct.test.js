@@ -1,10 +1,10 @@
 const test = require('node:test');
 const assert = require('node:assert');
-const polystruct = require('./polystruct');
+const polystruct = require('../src/polystruct');
 
 const ref = {
     foo: {
-        bar: 'foo',
+        bar: 'foo'
     },
     bar: {
         foo: 'bar'
@@ -15,7 +15,7 @@ test('all enabled', () => {
     const expected = {
         foo: {
             enabled: true,
-            bar: 'foo',
+            bar: 'foo'
         },
         bar: {
             enabled: true,
@@ -43,7 +43,7 @@ test('all disabled', () => {
     const expected = {
         foo: {
             enabled: false,
-            bar: 'foo',
+            bar: 'foo'
         },
         bar: {
             enabled: false,
@@ -81,7 +81,7 @@ test('enable one of two', () => {
     const expected = {
         foo: {
             enabled: false,
-            bar: 'foo',
+            bar: 'foo'
         },
         bar: {
             enabled: true,
@@ -99,6 +99,35 @@ test('enable one of two', () => {
 
     inputs.forEach(input => {
         const actual = polystruct(input, ref);
+        assert.deepEqual(actual, expected);
+    });
+
+});
+
+test('option to include key and rename enabled', () => {
+    const expected = {
+        foo: {
+            key: 'foo',
+            on: false,
+            bar: 'foo'
+        },
+        bar: {
+            key: 'bar',
+            on: true,
+            foo: 'bar'
+        }
+    };
+
+    const inputs = [
+        ['bar'],
+        [['bar', true]],
+        [['bar', { on: true }]],
+        { bar: true },
+        { bar: { on: true } }
+    ];
+
+    inputs.forEach(input => {
+        const actual = polystruct(input, ref, { key: 'key', enabled: 'on' });
         assert.deepEqual(actual, expected);
     });
 

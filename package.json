@@ -2,9 +2,35 @@
     "name": "polystruct",
     "version": "0.0.1",
     "description": "",
-    "main": "polystruct.js",
-    "scripts": {
-        "test": "node test"
+    "homepage": "https://github.com/mattriley/node-polystruct",
+    "repository": "github:mattriley/node-polystruct",
+    "author": {
+        "name": "Matt Riley",
+        "email": "m@ttriley.dev",
+        "url": "https://github.com/mattriley"
     },
-    "author": "Matt Riley"
+    "bugs": {
+        "url": "https://github.com/mattriley/node-polystruct/issues",
+        "email": "m@ttriley.dev"
+    },
+    "main": "src/polystruct.js",
+    "scripts": {
+        "cov": "npx task cov",
+        "deploy": "npx task deploy",
+        "lint": "npx task lint",
+        "pre": "npx task pre",
+        "setup": "npm i && npx task setup",
+        "start": "npx task start",
+        "test": "npx task test"
+    },
+    "devDependencies": {
+        "cloc": "^1.96.0-cloc",
+        "doctoc": "^2.2.1",
+        "ejs": "^3.1.9",
+        "eslint": "^8.38.0",
+        "eslint-plugin-import": "^2.27.5",
+        "husky": "^8.0.3",
+        "npm-check-updates": "^16.10.8",
+        "task-library": "^0.207.0"
+    }
 }
