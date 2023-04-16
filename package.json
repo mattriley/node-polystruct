@@ -1,6 +1,6 @@
 {
     "name": "polystruct",
-    "version": "0.4.0",
+    "version": "0.5.0",
     "description": "Make configuration convenient with Polystruct, a tiny utility that derives a common data structure from varying input representations.",
     "homepage": "https://github.com/mattriley/node-polystruct",
     "repository": "github:mattriley/node-polystruct",
