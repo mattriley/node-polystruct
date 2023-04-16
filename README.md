@@ -11,6 +11,7 @@ Make configuration convenient with Polystruct, a tiny utility that derives a com
 ## Table of Contents
 
 - [Install](#install)
+- [Usage](#usage)
 - [Scenarios](#scenarios)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -20,6 +21,13 @@ Make configuration convenient with Polystruct, a tiny utility that derives a com
 ###### <p align="right"><a href="https://www.npmjs.com/package/polystruct">https://www.npmjs.com/package/polystruct</a></p>
 ```sh
 npm install polystruct
+```
+
+## Usage
+
+```js
+const polystruct = require('polystruct');
+const result = polystruct(inputValueOrArrayOrObject, referenceArrayOrObject, optionsObject);
 ```
 
 ## Scenarios
