@@ -41,11 +41,11 @@ module.exports = [
             foo: { key: 'foo', enabled: true, a: 1 },
             bar: { key: 'bar', enabled: true, b: 2 }
         },
-        ref: {
+        referenceObject: {
             foo: { a: 1 },
             bar: { b: 2 }
         },
-        vals: [
+        inputs: [
             true,
             ['foo', 'bar'],
             [['foo', true], ['bar', true]],
@@ -62,11 +62,11 @@ module.exports = [
     {
         name: 'all disabled',
         expected: {},
-        ref: {
+        referenceObject: {
             foo: { a: 1 },
             bar: { b: 2 }
         },
-        vals: [
+        inputs: [
             false,
             null,
             undefined,
@@ -95,66 +95,66 @@ module.exports = [
         expected: {
             bar: { key: 'bar', enabled: true, b: 2 }
         },
-        ref: {
+        referenceObject: {
             foo: { a: 1 },
             bar: { b: 2 }
         },
-        vals: [
+        inputs: [
             ['bar']
         ]
     },
     {
-        name: 'ref is array',
+        name: 'reference object is array',
         expected: {
             foo: { key: 'foo', enabled: true }
         },
-        ref: ['foo', 'bar'],
-        vals: [
+        referenceObject: ['foo', 'bar'],
+        inputs: [
             ['foo']
         ]
     },
     {
         name: 'option to rename key',
-        opt: { keyNames: { key: 'id' } },
+        options: { keyNames: { key: 'id' } },
         expected: {
             foo: { id: 'foo', enabled: true }
         },
-        ref: ['foo'],
-        vals: [
+        referenceObject: ['foo'],
+        inputs: [
             ['foo']
         ]
     },
     {
         name: 'option to omit key',
-        opt: { keyNames: { key: null } },
+        options: { keyNames: { key: null } },
         expected: {
             foo: { enabled: true }
         },
-        ref: ['foo'],
-        vals: [
+        referenceObject: ['foo'],
+        inputs: [
             ['foo']
         ]
     },
     {
         name: 'option to rename enabled',
-        opt: { keyNames: { enabled: 'on' } },
+        options: { keyNames: { enabled: 'on' } },
         expected: {
             foo: { key: 'foo', on: true }
         },
-        ref: ['foo'],
-        vals: [
+        referenceObject: ['foo'],
+        inputs: [
             ['foo']
         ]
     },
     {
         name: 'option to not filter',
-        opt: { filter: false },
+        options: { filter: false },
         expected: {
             foo: { key: 'foo', enabled: true },
             bar: { key: 'bar', enabled: false }
         },
-        ref: ['foo', 'bar'],
-        vals: [
+        referenceObject: ['foo', 'bar'],
+        inputs: [
             ['foo']
         ]
     }

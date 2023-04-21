@@ -5,9 +5,9 @@ const polystruct = require('../src/polystruct');
 
 scenarios.forEach(scenario => {
     test(scenario.name, async t => {
-        await Promise.all(scenario.vals.map(async val => {
+        await Promise.all(scenario.inputs.map(async val => {
             await t.test(JSON.stringify(val), () => {
-                const actual = polystruct(val, scenario.ref, scenario.opt);
+                const actual = polystruct(val, scenario.referenceObject, scenario.options);
                 assert.deepEqual(actual, scenario.expected);
             });
         }));
