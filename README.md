@@ -1,6 +1,6 @@
 # Polystruct
 
-<p align="right"><code>100% cov</code>&nbsp;<code>35 sloc</code>&nbsp;<code>1 files</code>&nbsp;<code>0 deps</code>&nbsp;<code>8 dev deps</code></p>
+<p align="right"><code>100% cov</code>&nbsp;<code>40 sloc</code>&nbsp;<code>1 files</code>&nbsp;<code>0 deps</code>&nbsp;<code>8 dev deps</code></p>
 
 Make configuration convenient with Polystruct, a tiny utility that derives a common data structure from varying input representations.
 
@@ -38,8 +38,8 @@ module.exports = [
     {
         name: 'all enabled',
         expected: {
-            foo: { enabled: true, a: 1 },
-            bar: { enabled: true, b: 2 }
+            foo: { key: 'foo', enabled: true, a: 1 },
+            bar: { key: 'bar', enabled: true, b: 2 }
         },
         ref: {
             foo: { a: 1 },
@@ -61,10 +61,7 @@ module.exports = [
     },
     {
         name: 'all disabled',
-        expected: {
-            foo: { enabled: false, a: 1 },
-            bar: { enabled: false, b: 2 }
-        },
+        expected: {},
         ref: {
             foo: { a: 1 },
             bar: { b: 2 }
@@ -96,8 +93,7 @@ module.exports = [
     {
         name: 'enable one of two',
         expected: {
-            foo: { enabled: false, a: 1 },
-            bar: { enabled: true, b: 2 }
+            bar: { key: 'bar', enabled: true, b: 2 }
         },
         ref: {
             foo: { a: 1 },
@@ -110,8 +106,7 @@ module.exports = [
     {
         name: 'ref is array',
         expected: {
-            foo: { enabled: true },
-            bar: { enabled: false }
+            foo: { key: 'foo', enabled: true }
         },
         ref: ['foo', 'bar'],
         vals: [
@@ -119,10 +114,21 @@ module.exports = [
         ]
     },
     {
-        name: 'option to include key',
-        opt: { key: 'key' },
+        name: 'option to rename key',
+        opt: { keyNames: { key: 'id' } },
         expected: {
-            foo: { key: 'foo', enabled: true }
+            foo: { id: 'foo', enabled: true }
+        },
+        ref: ['foo'],
+        vals: [
+            ['foo']
+        ]
+    },
+    {
+        name: 'option to omit key',
+        opt: { keyNames: { key: null } },
+        expected: {
+            foo: { enabled: true }
         },
         ref: ['foo'],
         vals: [
@@ -131,11 +137,23 @@ module.exports = [
     },
     {
         name: 'option to rename enabled',
-        opt: { enabled: 'on' },
+        opt: { keyNames: { enabled: 'on' } },
         expected: {
-            foo: { on: true }
+            foo: { key: 'foo', on: true }
         },
         ref: ['foo'],
+        vals: [
+            ['foo']
+        ]
+    },
+    {
+        name: 'option to not filter',
+        opt: { filter: false },
+        expected: {
+            foo: { key: 'foo', enabled: true },
+            bar: { key: 'bar', enabled: false }
+        },
+        ref: ['foo', 'bar'],
         vals: [
             ['foo']
         ]

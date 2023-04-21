@@ -1,7 +1,11 @@
-const defaultOptions = { key: null, enabled: 'enabled' };
+const defaultOptions = {
+    keyNames: { key: 'key', enabled: 'enabled' },
+    filter: true
+};
 
 module.exports = (val, ref, options = {}) => {
-    const opt = { ...defaultOptions, ...options };
+    const keyNames = { ...defaultOptions.keyNames, ...options.keyNames };
+    const opt = { ...defaultOptions, ...options, keyNames };
     const refobj = Array.isArray(ref) ? Object.fromEntries(ref.map(el => [el, {}])) : ref;
 
     const polystruct = {
@@ -23,14 +27,15 @@ module.exports = (val, ref, options = {}) => {
             })));
         },
         obj: obj => {
-            const maybeKey = key => opt.key ? { [opt.key]: key } : {};
-            return Object.fromEntries(Object.entries(refobj).map(([key, refobj]) => {
-                const res = enabled => [key, { ...refobj, ...val, [opt.enabled]: enabled, ...maybeKey(key) }];
+            const maybeKey = key => opt.keyNames.key ? { [opt.keyNames.key]: key } : {};
+            const entries = Object.entries(refobj).map(([key, refobj]) => {
+                const res = enabled => [key, { ...refobj, ...val, [opt.keyNames.enabled]: enabled, ...maybeKey(key) }];
                 const val = obj[key];
                 if (!val) return res(false);
-                if (val.constructor === Object) return res(opt.enabled in val ? !!val[opt.enabled] : true);
+                if (val.constructor === Object) return res(opt.keyNames.enabled in val ? !!val[opt.keyNames.enabled] : true);
                 return res(true);
-            }));
+            }).filter(([, val]) => opt.filter ? val[opt.keyNames.enabled] : true);
+            return Object.fromEntries(entries);
         }
     };
 
