@@ -1,6 +1,6 @@
 # Polystruct
 
-<p align="right"><code>100% cov</code>&nbsp;<code>40 sloc</code>&nbsp;<code>1 files</code>&nbsp;<code>0 deps</code>&nbsp;<code>8 dev deps</code></p>
+<p align="right"><code>100% cov</code>&nbsp;<code>39 sloc</code>&nbsp;<code>1 files</code>&nbsp;<code>0 deps</code>&nbsp;<code>8 dev deps</code></p>
 
 Make configuration convenient with Polystruct, a tiny utility that derives a common data structure from varying input representations.
 

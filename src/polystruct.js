@@ -1,11 +1,10 @@
-const defaultOptions = {
+const defaults = {
     keyNames: { key: 'key', enabled: 'enabled' },
     filter: true
 };
 
 module.exports = (val, ref, options = {}) => {
-    const keyNames = { ...defaultOptions.keyNames, ...options.keyNames };
-    const opt = { ...defaultOptions, ...options, keyNames };
+    const opt = { ...defaults, ...options, keyNames: { ...defaults.keyNames, ...options.keyNames } };
     const refobj = Array.isArray(ref) ? Object.fromEntries(ref.map(el => [el, {}])) : ref;
 
     const polystruct = {
