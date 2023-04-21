@@ -2,13 +2,10 @@ module.exports = [
     {
         name: 'all enabled',
         expected: {
-            foo: { key: 'foo', enabled: true, a: 1 },
-            bar: { key: 'bar', enabled: true, b: 2 }
+            foo: { key: 'foo', enabled: true },
+            bar: { key: 'bar', enabled: true }
         },
-        referenceObject: {
-            foo: { a: 1 },
-            bar: { b: 2 }
-        },
+        referenceObject: ['foo', 'bar'],
         inputs: [
             true,
             ['foo', 'bar'],
@@ -26,10 +23,7 @@ module.exports = [
     {
         name: 'all disabled',
         expected: {},
-        referenceObject: {
-            foo: { a: 1 },
-            bar: { b: 2 }
-        },
+        referenceObject: ['foo', 'bar'],
         inputs: [
             false,
             null,
@@ -57,12 +51,9 @@ module.exports = [
     {
         name: 'enable one of two',
         expected: {
-            bar: { key: 'bar', enabled: true, b: 2 }
+            bar: { key: 'bar', enabled: true }
         },
-        referenceObject: {
-            foo: { a: 1 },
-            bar: { b: 2 }
-        },
+        referenceObject: ['foo', 'bar'],
         inputs: [
             ['bar']
         ]
@@ -72,7 +63,19 @@ module.exports = [
         expected: {
             foo: { key: 'foo', enabled: true }
         },
-        referenceObject: ['foo', 'bar'],
+        referenceObject: ['foo'],
+        inputs: [
+            ['foo']
+        ]
+    },
+    {
+        name: 'reference object is literal object',
+        expected: {
+            foo: { key: 'foo', enabled: true, baz: 'qux' }
+        },
+        referenceObject: {
+            foo: { baz: 'qux' }
+        },
         inputs: [
             ['foo']
         ]
