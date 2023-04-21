@@ -20,7 +20,7 @@ module.exports = (val, ref, options = {}) => {
                 if (Array.isArray(el)) {
                     const [key, val] = el;
                     if (!val) return [key, false];
-                    if (val.constructor === Object) return [key, val];
+                    if (val.constructor === Object) return el;
                     return [key, true];
                 }
             })));

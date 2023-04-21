@@ -107,13 +107,25 @@ module.exports = [
     {
         name: 'reference object is literal object',
         expected: {
-            foo: { key: 'foo', enabled: true, baz: 'qux' }
+            foo: { key: 'foo', enabled: true }
         },
         referenceObject: {
-            foo: { baz: 'qux' }
+            foo: {}
         },
         inputs: [
             ['foo']
+        ]
+    },
+    {
+        name: 'merging when reference object is literal object',
+        expected: {
+            foo: { key: 'foo', enabled: true, a: 1, b: 22, c: 3 }
+        },
+        referenceObject: {
+            foo: { a: 1, b: 2 }
+        },
+        inputs: [
+            [['foo', { b: 22, c: 3 }]]
         ]
     },
     {
