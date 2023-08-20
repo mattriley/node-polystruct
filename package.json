@@ -27,13 +27,13 @@
         "test": "npx task test"
     },
     "devDependencies": {
-        "cloc": "^1.96.0-cloc",
+        "cloc": "^1.98.0-cloc",
         "doctoc": "^2.2.1",
         "ejs": "^3.1.9",
-        "eslint": "^8.38.0",
-        "eslint-plugin-import": "^2.27.5",
+        "eslint": "^8.47.0",
+        "eslint-plugin-import": "^2.28.1",
         "husky": "^8.0.3",
-        "npm-check-updates": "^16.10.8",
-        "task-library": "^0.210.0"
+        "npm-check-updates": "^16.12.2",
+        "task-library": "^0.265.0"
     }
 }
